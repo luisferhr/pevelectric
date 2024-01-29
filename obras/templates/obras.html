@@ -5,7 +5,34 @@
     <title>Obras en Construcción</title>
 </head>
 <body>
-    <h1>Esta es obras en construcción</h1>
+    <h1>Obras en Construcción</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Número de Obra</th>
+                <th>Descripción</th>
+                <th>Lugar</th>
+                <th>Material</th>
+                <th>Apoyo Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obra in obras %}
+            <tr>
+                <td>{{ obra.numero_obra }}</td>
+                <td>{{ obra.descripcion }}</td>
+                <td>{{ obra.lugar }}</td>
+                <td>{{ obra.material }}</td>
+                <td>{{ obra.apoyo_data }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay obras.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     <a href="{% url 'index' %}">Volver</a>
+    <a href="{% url 'crear_obra' %}">Crear Nueva Obra</a>
 </body>
 </html>

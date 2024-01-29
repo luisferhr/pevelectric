@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Nueva Obra</title>
+</head>
+<body>
+    <h1>Crear Nueva Obra</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar Obra</button>
+    </form>
+    <a href="{% url 'obras_construccion' %}">Volver a Obras</a>
+</body>
+</html>
