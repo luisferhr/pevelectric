@@ -15,3 +15,6 @@ def crear_obra(request):
     else:
         form = ObraForm()
     return render(request, 'crear_obra.html', {'form': form})
+
+def obra(request):
+    pass
