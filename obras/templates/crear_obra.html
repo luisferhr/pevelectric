@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Crear Nueva Obra</title>
@@ -8,7 +8,18 @@
     <h1>Crear Nueva Obra</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <label for="{{ form.id_obra.id_for_label }}">Número de Obra:</label>
+        <input type="text" id="{{ form.id_obra.id_for_label }}" name="{{ form.id_obra.name }}" value="{{ form.id_obra.value|default_if_none:'' }}"><br>
+        <label for="{{ form.descripcion.id_for_label }}">Descripción:</label>
+        <input type="text" id="{{ form.descripcion.id_for_label }}" name="{{ form.descripcion.name }}" value="{{ form.descripcion.value|default_if_none:'' }}"><br>
+        <label for="{{ form.lugar.id_for_label }}">Lugar:</label>
+        <input type="text" id="{{ form.lugar.id_for_label }}" name="{{ form.lugar.name }}" value="{{ form.lugar.value|default_if_none:'' }}"><br>   
+        <label for="{{ form.fk_material.id_for_label }}">Material:</label>
+        <input type="text" id="{{ form.fk_material.id_for_label }}" name="{{ form.fk_material.name }}" value="{{ form.fk_material.value|default_if_none:'' }}"><br>
+        <label>Emergencia:</label><br>
+        <input type="checkbox" id="emergencia" name="emergencia" value="True" {% if form.emergencia.value %}checked{% endif %}>
+        <label for="emergencia">Sí</label><br>
+        <br>
         <button type="submit">Guardar Obra</button>
     </form>
     <a href="{% url 'obras_construccion' %}">Volver a Obras</a>

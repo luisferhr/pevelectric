@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Obras en Construcción</title>
@@ -13,17 +13,17 @@
                 <th>Descripción</th>
                 <th>Lugar</th>
                 <th>Material</th>
-                <th>Apoyo Data</th>
+                <th>Emergencia</th>
             </tr>
         </thead>
         <tbody>
             {% for obra in obras %}
             <tr>
-                <td>{{ obra.numero_obra }}</td>
+                <td>{{ obra.id_obra }}</td>
                 <td>{{ obra.descripcion }}</td>
                 <td>{{ obra.lugar }}</td>
-                <td>{{ obra.material }}</td>
-                <td>{{ obra.apoyo_data }}</td>
+                <td>{{ obra.fk_material }}</td>
+                <td>{{ obra.emergencia }}</td>
             </tr>
             {% empty %}
             <tr>
