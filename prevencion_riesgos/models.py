@@ -1,2 +1,3 @@
 from django.db import models
-from usuario.models import Material, Obra, Contrato
+from usuario.models import Obra, TipoMaterial, MaterialObra
+

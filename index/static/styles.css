@@ -1,0 +1,195 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: row; /* Cambiado de column a row */
+    min-height: 100vh;
+}
+
+header {
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Asegúrate de que el header se extienda a lo largo de la pantalla */
+    position: fixed; /* El header se mantiene fijo en la parte superior */
+    top: 0;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.login-message {
+    font-size: 10px;
+    white-space: nowrap;
+    padding-right: 2%;
+}
+
+nav {
+    background-color: #333;
+    width: 200px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    height: 100vh; /* Altura completa para el menú lateral */
+    box-sizing: border-box; /* Ajusta el box-model para padding y border */
+    position: fixed; /* Fijo en el lado izquierdo */
+    top: 60px; /* Ajustar según la altura de tu header */
+}
+
+nav a {
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-bottom: 1px solid #444;
+    background-color: #333;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #555;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 200px; /* Margen izquierdo igual al ancho del menú lateral */
+    margin-top: 60px; /* Margen superior igual a la altura del header */
+    background-color: #fff;
+    overflow-y: auto; /* Añadir desplazamiento si es necesario */
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column; /* Cambia la dirección a columna para móviles */
+    }
+
+    header {
+        position: relative; /* El header ya no está fijo */
+    }
+
+    nav {
+        width: 100%;
+        height: auto; /* Altura automática para el menú */
+        flex-direction: column;
+        overflow-x: auto;
+        padding-top: 0;
+        position: relative; /* El menú ya no está fijo */
+        top: auto;
+    }
+
+    nav a {
+        flex-grow: 1;
+        text-align: center;
+        border-bottom: none;
+        border-right: 1px solid #444;
+    }
+
+    .content {
+        margin-left: 0; /* Sin margen izquierdo */
+        margin-top: 0; /* Sin margen superior */
+    }
+}
+
+table {
+    width: 100%; /* Ajusta la tabla al ancho del contenedor */
+    border-collapse: collapse; /* Colapsa los bordes de las celdas para que compartan un solo borde */
+    table-layout: fixed; /* Opcional: para que todas las columnas tengan el mismo ancho */
+}
+
+th, td {
+    border: 1px solid #ddd; /* Añade un borde a las celdas de la tabla */
+    text-align: left; /* Alinea el texto a la izquierda */
+    padding: 8px; /* Añade relleno dentro de las celdas para separar el texto de los bordes */
+}
+
+th {
+    background-color: #f2f2f2; /* Añade un color de fondo a las celdas del encabezado */
+    font-weight: bold; /* Hace que el texto del encabezado sea en negrita */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Añade un color de fondo a las filas pares para mejorar la legibilidad */
+}
+
+td {
+    font-size: 14px; /* Ajusta el tamaño de la fuente para el contenido de la tabla */
+}
+
+.form-login {
+    margin-top: 30px; /* Margen superior del formulario */
+}
+
+.form-login p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+  
+.form-login label {
+   flex-basis: 20%; /* Ajusta este valor según necesites */
+   text-align: right;
+   margin-right: 10px; /* Espaciado entre la etiqueta y el campo */
+}
+
+.form-login .button-container {
+    margin-left: 200px;
+    justify-content: flex-start; /* Alinea el botón al comienzo (izquierda) */
+    padding-top: 30px; /* Añade espacio arriba del botón */
+}
+  
+.obra-form .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.obra-form label {
+    width: 20%;
+    text-align: right;
+    margin-right: 30px;
+}
+
+.obra-form input[type="text"], .obra-form select {
+    flex-grow: 1;
+    min-width: 100px; /* Asegura que el campo de texto tenga al menos 100px de ancho */
+    max-width: 300px; /* Asegura que el campo de texto no exceda los 300px de ancho */
+}
+
+.obra-form input[type="checkbox"] {
+    margin-right: auto; /* Empuja el checkbox hacia la izquierda, alineándolo con el inicio de los textos */
+    width: auto; /* Restablece cualquier ancho previamente definido para evitar distorsión */
+    flex-grow: 0; /* Evita que el checkbox crezca para llenar el espacio disponible */
+}
+
+.obra-form .button-container {
+    margin-left: 300px;
+    justify-content: flex-start; /* Alinea el botón al comienzo (izquierda) */
+    padding-top: 30px; /* Añade espacio arriba del botón */
+}
+
+.nav .main-menu-link {
+    margin-top: 30px; /* Añade un margen superior de 30px */
+}
+
+.btn-link {
+    display: inline-block;
+    background-color:  #e9e8e8;; 
+    color: #060606; /* Color del texto similar al de los enlaces */
+    text-decoration: none; 
+    margin-right: 50%;
+    padding: 2px 10px; /* Relleno dentro del botón */
+    margin-left: 10px; /* Margen a la izquierda para separarlo del checkbox */
+    border: 1px solid #00000076; /* Bordes negros */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor a mano al pasar por encima */
+}
+
+.btn-link:hover {
+    color: #131313b0; /* Oscurece el color del texto al pasar el ratón */
+}

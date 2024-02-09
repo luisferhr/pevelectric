@@ -1,0 +1,97 @@
+﻿body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: row; /* Cambiado de column a row */
+    min-height: 100vh;
+}
+
+header {
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Asegúrate de que el header se extienda a lo largo de la pantalla */
+    position: fixed; /* El header se mantiene fijo en la parte superior */
+    top: 0;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.login-message {
+    font-size: 10px;
+    white-space: nowrap;
+    padding-right: 2%;
+}
+
+nav {
+    background-color: #333;
+    width: 200px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    height: 100vh; /* Altura completa para el menú lateral */
+    box-sizing: border-box; /* Ajusta el box-model para padding y border */
+    position: fixed; /* Fijo en el lado izquierdo */
+    top: 60px; /* Ajustar según la altura de tu header */
+}
+
+nav a {
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-bottom: 1px solid #444;
+    background-color: #333;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #555;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 200px; /* Margen izquierdo igual al ancho del menú lateral */
+    margin-top: 60px; /* Margen superior igual a la altura del header */
+    background-color: #fff;
+    overflow-y: auto; /* Añadir desplazamiento si es necesario */
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column; /* Cambia la dirección a columna para móviles */
+    }
+
+    header {
+        position: relative; /* El header ya no está fijo */
+    }
+
+    nav {
+        width: 100%;
+        height: auto; /* Altura automática para el menú */
+        flex-direction: column;
+        overflow-x: auto;
+        padding-top: 0;
+        position: relative; /* El menú ya no está fijo */
+        top: auto;
+    }
+
+    nav a {
+        flex-grow: 1;
+        text-align: center;
+        border-bottom: none;
+        border-right: 1px solid #444;
+    }
+
+    .content {
+        margin-left: 0; /* Sin margen izquierdo */
+        margin-top: 0; /* Sin margen superior */
+    }
+}

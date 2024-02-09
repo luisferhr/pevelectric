@@ -64,7 +64,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 #AUTH_USER_MODEL = 'usuario.User'  # Reemplaza 'usuario' con el nombre de tu aplicación de usuarios
-
+LOGIN_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {
@@ -134,7 +134,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

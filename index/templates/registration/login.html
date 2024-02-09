@@ -1,10 +1,42 @@
-{% extends "base.html" %}
-
-{% block content %}
-  <h2>Iniciar sesión</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Iniciar sesión</button>
-  </form>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pevelectric</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">Autentificación</div>
+            {% if user.is_authenticated %}
+                <div class="login-message">
+                    Bienvenido, {{ user.get_username }}
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit">Salir</button>
+                    </form>
+                </div>
+            {% else %}
+              <div class="login-message">
+                  <a href="{% url 'login' %}">Iniciar sesión</a>
+              </div>
+            {% endif %}
+        </div>
+    </header>
+    <nav class="nav">
+      <a href="{% url 'login' %}">Limpiar</a>
+    </nav>
+    <main class="content">
+      <h1>Ingrese sus credenciales:</h1>
+      <form method="post" class="form-login">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-group button-container">
+          <button type="submit">Iniciar sesión</button>
+        </div>
+      </form>
+    </main>    
+</body>
+</html>

@@ -1,38 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
-    <title>Obras en Construcción</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pevelectric</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body>
-    <h1>Obras en Construcción</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Número de Obra</th>
-                <th>Descripción</th>
-                <th>Lugar</th>
-                <th>Material</th>
-                <th>Emergencia</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for obra in obras %}
-            <tr>
-                <td>{{ obra.id_obra }}</td>
-                <td>{{ obra.descripcion }}</td>
-                <td>{{ obra.lugar }}</td>
-                <td>{{ obra.fk_material }}</td>
-                <td>{{ obra.emergencia }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="5">No hay obras.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'index' %}">Volver</a>
-    <a href="{% url 'crear_obra' %}">Crear Nueva Obra</a>
+    <header>
+        <div class="logo">Menú obras</div>
+        {% if user.is_authenticated %}
+            <div class="login-message">
+                Bienvenido, {{ user.get_username }}
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Salir</button>
+                </form>
+            </div>
+        {% else %}
+            <a href="{% url 'login' %}">Iniciar sesión</a>
+        {% endif %}
+    </header>
+    <nav class="nav">
+        <a href="{% url 'crear_obra' %}">Nueva Obra</a>
+        <a href="#">Emergencias</a>
+        <a href="{% url 'index' %}" class="main-menu-link">Menú principal</a>
+    </nav>
+    <main class="content">
+        <h1>Obras en desarrollo</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Número Obra</th>
+                    <th>Detalle</th>
+                    <th>Lugar</th>
+                    <th>Emergencia</th>
+                    <th>Retira Material</th>
+                    <th>Devuelve Material</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for obra in obras %}
+                <tr>
+                    <td>{{ obra.id_obra }}</td>
+                    <td>{{ obra.descripcion }}</td>
+                    <td>{{ obra.lugar }}</td>
+                    <td>{{ obra.si_emergencia }}</td>
+                    <td>{{ obra.si_retira }}</td>
+                    <td>{{ obra.si_devuelve }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">No hay obras.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
 </body>
 </html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pevelectric</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">Devolición de material</div>
+        {% if user.is_authenticated %}
+            <div class="login-message">
+                Bienvenido, {{ user.get_username }}
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Salir</button>
+                </form>
+            </div>
+        {% else %}
+            <a href="{% url 'login' %}">Iniciar sesión</a>
+        {% endif %}
+    </header>
+    <nav class="nav">
+        <a href="#">Devoluciones</a>
+        <a href="#">Retiros</a> 
+        <a href="{% url 'obras_construccion' %}" class="main-menu-link">Volver a obras</a>
+        <a href="{% url 'index' %}">Menú principal</a>
+    </nav>
+    <main class="content">
+        <h1>Ingrese los siguientes datos:</h1>
+        <form method="post" class="obra-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.id_obra.id_for_label }}">Número de Obra</label>
+                <input type="text" id="{{ form.id_obra.id_for_label }}" name="{{ form.id_obra.name }}" value="{{ form.id_obra.value|default_if_none:'' }}">
+            </div>
+
+            <div class="form-group button-container">
+                <button type="submit">Guardar devolución</button>
+            </div>
+        </form>        
+    </main>
+</body>
+</html>

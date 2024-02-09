@@ -1,34 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
-    <title>Pantalla Inicial</title>
-    <!-- Aquí puedes añadir CSS o JS si es necesario -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pevelectric</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body>
-    <div class="logo">
-        <!-- Inserta tu logo aquí -->
-    </div>
-    <div class="auth">
-        {% if user.is_authenticated %}
-            Bienvenido {{ user.username }} |
-            <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit">Salir</button>
-            </form>
-        {% else %}
-            <a href="{% url 'login' %}">Iniciar sesión</a>
-        {% endif %}
-    </div>
-    <div class="menu">
-        <ul>
-            <li><a href="{% url 'obras_construccion' %}">Obras</a></li>
-            <li><a href="{% url 'emergencias' %}">Emergencias</a></li>
-            <li><a href="{% url 'control_diario' %}">Control diario</a></li>
-            <li><a href="{% url 'facturacion' %}">Facturación</a></li>
-            <li><a href="{% url 'remuneracion' %}">Remuneración</a></li>
-            <li><a href="{% url 'prevencion_riesgos' %}">Prevención de riesgos</a></li>
-        </ul>
-    </div>
+    <header>
+        <div class="logo">Menú principal</div>
+            {% if user.is_authenticated %}
+                <div class="login-message">
+                    Bienvenido, {{ user.get_username }}
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit">Salir</button>
+                    </form>
+                </div>
+            {% else %}
+                <a href="{% url 'login' %}">Iniciar sesión</a>
+            {% endif %}
+        </div>
+    </header>
+    <nav class="nav">
+        <a href="{% url 'obras_construccion' %}">Obras</a>
+        <a href="#">Emergencias</a>
+        <a href="#">Control Diario</a>
+        <a href="#">Facturación</a>
+        <a href="#">Remuneración</a>
+        <a href="#">Prevención Riesgos</a>
+    </nav>
+    <main class="content">
+        <p>Área de trabajo</p>
+    </main>
 </body>
 </html>

@@ -1,27 +1,79 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
-    <title>Crear Nueva Obra</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pevelectric</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body>
-    <h1>Crear Nueva Obra</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="{{ form.id_obra.id_for_label }}">Número de Obra:</label>
-        <input type="text" id="{{ form.id_obra.id_for_label }}" name="{{ form.id_obra.name }}" value="{{ form.id_obra.value|default_if_none:'' }}"><br>
-        <label for="{{ form.descripcion.id_for_label }}">Descripción:</label>
-        <input type="text" id="{{ form.descripcion.id_for_label }}" name="{{ form.descripcion.name }}" value="{{ form.descripcion.value|default_if_none:'' }}"><br>
-        <label for="{{ form.lugar.id_for_label }}">Lugar:</label>
-        <input type="text" id="{{ form.lugar.id_for_label }}" name="{{ form.lugar.name }}" value="{{ form.lugar.value|default_if_none:'' }}"><br>   
-        <label for="{{ form.fk_material.id_for_label }}">Material:</label>
-        <input type="text" id="{{ form.fk_material.id_for_label }}" name="{{ form.fk_material.name }}" value="{{ form.fk_material.value|default_if_none:'' }}"><br>
-        <label>Emergencia:</label><br>
-        <input type="checkbox" id="emergencia" name="emergencia" value="True" {% if form.emergencia.value %}checked{% endif %}>
-        <label for="emergencia">Sí</label><br>
-        <br>
-        <button type="submit">Guardar Obra</button>
-    </form>
-    <a href="{% url 'obras_construccion' %}">Volver a Obras</a>
+    <header>
+        <div class="logo">Nueva obra</div>
+        {% if user.is_authenticated %}
+            <div class="login-message">
+                Bienvenido, {{ user.get_username }}
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Salir</button>
+                </form>
+            </div>
+        {% else %}
+            <a href="{% url 'login' %}">Iniciar sesión</a>
+        {% endif %}
+    </header>
+    <nav class="nav">
+        <a href="{% url 'crear_obra' %}">Nueva Obra</a>
+        <a href="#">Emergencias</a> 
+        <a href="{% url 'obras_construccion' %}" class="main-menu-link">Volver a obras</a>
+        <a href="{% url 'index' %}">Menú principal</a>
+    </nav>
+    <main class="content">
+        <h1>Ingrese los siguientes datos:</h1>
+        <form method="post" class="obra-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.id_obra.id_for_label }}">Número de Obra</label>
+                <input type="text" id="{{ form.id_obra.id_for_label }}" name="{{ form.id_obra.name }}" value="{{ form.id_obra.value|default_if_none:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="{{ form.descripcion.id_for_label }}">Descripción</label>
+                <input type="text" id="{{ form.descripcion.id_for_label }}" name="{{ form.descripcion.name }}" value="{{ form.descripcion.value|default_if_none:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="{{ form.lugar.id_for_label }}">Lugar</label>
+                <input type="text" id="{{ form.lugar.id_for_label }}" name="{{ form.lugar.name }}" value="{{ form.lugar.value|default_if_none:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="si_emergencia">Emergencia</label>
+                <input type="checkbox" id="si_emergencia" name="si_emergencia" {% if form.si_emergencia.value %}checked{% endif %}>
+            </div>
+            <div class="form-group">
+                <label for="si_retira">Retira Material</label>
+                <input type="checkbox" id="si_retira" name="si_retira" {% if form.si_retira.value %}checked{% endif %}>
+                <a href="{% url 'retiro' obra_id=obra.id_obra %}"  class="btn-link">Ing. Retira</a>
+            </div>
+            <div class="form-group">
+                <label for="si_devuelve">Devuelve Material</label>
+                <input type="checkbox" id="si_devuelve" name="si_devuelve" {% if form.si_devuelve.value %}checked{% endif %}>
+                <a href="#" class="btn-link">Ing. Devuelve</a>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.fecha_inicio.id_for_label }}">Fecha de Inicio</label>
+                {{ form.fecha_inicio }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.fecha_termino.id_for_label }}">Fecha de Término</label>
+                {{ form.fecha_termino }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.tipo_obra.id_for_label }}">Tipo de Obra</label>
+                {{ form.tipo_obra }}
+            </div>
+            <div class="form-group button-container">
+                <button type="submit">Guardar Obra</button>
+            </div>
+        </form>        
+    </main>
 </body>
 </html>

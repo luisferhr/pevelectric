@@ -6,3 +6,8 @@ def index(request):
     return render(request, 'index/index.html', {
         'user': request.user
     })
+
+def profile(request):
+    return render(request, 'index/index.html', {
+        'user': request.user
+    })
