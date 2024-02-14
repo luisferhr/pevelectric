@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pevelectric</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <!-- Incluir jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- Incluir DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <!-- Incluir DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
 </head>
 <body>
     <header>
@@ -29,34 +36,45 @@
     </nav>
     <main class="content">
         <h1>Obras en desarrollo</h1>
-        <table>
+        <table id="tablaObras">
             <thead>
                 <tr>
-                    <th>Número Obra</th>
+                    <th>Num</th>
                     <th>Detalle</th>
                     <th>Lugar</th>
-                    <th>Emergencia</th>
-                    <th>Retira Material</th>
-                    <th>Devuelve Material</th>
+                    <th>Inicio</th>
+                    <th>Término</th>
+                    <th>Retiros</th>
+                    <th>Devoluciones</th>
                 </tr>
             </thead>
             <tbody>
                 {% for obra in obras %}
                 <tr>
-                    <td>{{ obra.id_obra }}</td>
+                    <td><a href="{% url 'modificar' id_obra=obra.id_obra retornar_a='obras_construccion' %}">Modificar {{ obra.id_obra }}</a></td>
                     <td>{{ obra.descripcion }}</td>
                     <td>{{ obra.lugar }}</td>
-                    <td>{{ obra.si_emergencia }}</td>
-                    <td>{{ obra.si_retira }}</td>
-                    <td>{{ obra.si_devuelve }}</td>
+                    <td>{{ obra.fecha_inicio }}</td>
+                    <td>{{ obra.fecha_termino }}</td>
+                    <td><a href="{{ obra.url_retiro }}">Retiros de {{obra.id_obra}}</a></td>
+                    <td><a href="{{ obra.url_devolucion }}">Devoluciones de {{obra.id_obra}}</a></td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="6">No hay obras.</td>
+                    <td colspan="6">No hay obras ingresadas aún.</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </main>
+    <script>
+        $(document).ready(function() {
+            $('#tablaObras').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+                }
+            });
+        });
+    </script>
 </body>
 </html>

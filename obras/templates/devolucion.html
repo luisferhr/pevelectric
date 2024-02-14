@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <div class="logo">Devolición de material</div>
+        <div class="logo">Devolución de material</div>
         {% if user.is_authenticated %}
             <div class="login-message">
                 Bienvenido, {{ user.get_username }}
@@ -23,8 +23,6 @@
         {% endif %}
     </header>
     <nav class="nav">
-        <a href="#">Devoluciones</a>
-        <a href="#">Retiros</a> 
         <a href="{% url 'obras_construccion' %}" class="main-menu-link">Volver a obras</a>
         <a href="{% url 'index' %}">Menú principal</a>
     </nav>
@@ -34,11 +32,16 @@
             {% csrf_token %}
             <div class="form-group">
                 <label for="{{ form.id_obra.id_for_label }}">Número de Obra</label>
-                <input type="text" id="{{ form.id_obra.id_for_label }}" name="{{ form.id_obra.name }}" value="{{ form.id_obra.value|default_if_none:'' }}">
+                <span>{{ obra_id }}</span>
             </div>
-
+            {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
             <div class="form-group button-container">
-                <button type="submit">Guardar devolución</button>
+                <button type="submit">Finalizar devolución</button>
             </div>
         </form>        
     </main>

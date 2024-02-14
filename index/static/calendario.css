@@ -1,0 +1,41 @@
+/* Estilos generales para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 21px; /* Separación de la tabla con los botones de navegación */
+}
+
+th, td {
+    border: 1px solid black;
+    text-align: center;
+    padding: 8px;
+    font-weight: bold; /* Texto en negrita */
+}
+
+/* Estilos para los días con obras */
+td a {
+    display: block;
+    color: black; /* Texto de color negro */
+    background-color: red; /* Fondo rojo para días con obras */
+    padding: 5px;
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+}
+
+td a:hover {
+    background-color: #ff6666; /* Cambia el color de fondo al pasar el mouse */
+}
+
+/* Estilos para los botones de navegación */
+div a {
+    display: inline-block;
+    margin-right: 10px; /* Separación entre botones */
+    padding: 10px;
+    background-color: red; /* Fondo rojo */
+    color: white; /* Texto blanco */
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+    transition: background-color 0.3s; /* Transición suave del color de fondo */
+}
+
+div a:hover {
+    background-color: blue; /* Cambio de color a azul al pasar el mouse */
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pevelectric</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">Nueva obra</div>
+        {% if user.is_authenticated %}
+            <div class="login-message">
+                Bienvenido, {{ user.get_username }}
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Salir</button>
+                </form>
+            </div>
+        {% else %}
+            <a href="{% url 'login' %}">Iniciar sesión</a>
+        {% endif %}
+    </header>
+    <nav class="nav">
+        <a href="{% url 'crear_obra' %}">Nueva Obra</a>
+        <a href="#">Emergencias</a> 
+        <a href="{% url 'obras_construccion' %}" class="main-menu-link">Volver a obras</a>
+        <a href="{% url 'index' %}">Menú principal</a>
+    </nav>
+    <main class="content">
+
+        <h1>Calendario de Obras - {{ nombre_mes }} {{ año }}</h2>
+            <table class="calendario-table">
+                <div class="search-box">
+                    <label for="searchObra">Buscar Obra por Número:</label>
+                    <input type="text" id="searchObra" name="searchObra">
+                    <button id="searchObraBtn">Buscar</button>
+                </div>
+                <tr>
+                    <th>Lun</th>
+                    <th>Mar</th>
+                    <th>Mié</th>
+                    <th>Jue</th>
+                    <th>Vie</th>
+                    <th>Sáb</th>
+                    <th>Dom</th>
+                </tr>
+                {% for semana in semanas %}
+                <tr>
+                    {% for dia in semana %}
+                    <td data-dia="{{dia.dia}}">
+                        {% if dia.tiene_obra and dia.dia != 0 %}
+                        <!-- Asumiendo que 'obras_por_dia' es una vista que acepta año, mes y día -->
+                        <a href="{% url 'obras_por_dia' año=año mes=mes dia=dia.dia %}">{{ dia.dia }}</a>
+                        {% else %}
+                        {{ dia.dia|default:"" }}
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        <!-- Botones para navegar entre meses y años -->
+        <div class="navigation-links">
+            <a href="{% url 'control_diario_fecha' año=año_antes mes=mes %}" class="button">Año anterior</a>
+            <a href="{% url 'control_diario_fecha' año=año_anterior mes=mes_anterior %}" class="button margin-right">Mes anterior</a>
+            <a href="{% url 'control_diario_fecha' año=año_siguiente mes=mes_siguiente %}" class="button">Mes siguiente</a>
+            <a href="{% url 'control_diario_fecha' año=año_despues mes=mes %}" class="button">Año siguiente</a>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var inicioObra = JSON.parse('{{ inicio_obra|safe }}');
+            $('#searchObra').on('input', function() {
+                var textoIngresado = $('#searchObra').val().toLowerCase(); // Obtiene el texto ingresado por el usuario
+                $('.calendario-table td').css('background-color', ''); // Limpia cualquier resaltado previo
+                
+                if (textoIngresado.length > 0) { // Solo procede si hay texto ingresado
+                    Object.entries(inicioObra).forEach(([dia, obras]) => {
+                        obras.forEach(obra => {
+                            if (obra.toLowerCase().startsWith(textoIngresado)) { // Comprueba si el ID de obra comienza con el texto ingresado
+                                // Resalta el día correspondiente en el calendario
+                                $(`.calendario-table td[data-dia="${dia}"]`).css('background-color', 'yellow');
+                            }
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+        
+        
+</body>
+</html>

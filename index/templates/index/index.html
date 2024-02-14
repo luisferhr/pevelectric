@@ -26,13 +26,16 @@
     <nav class="nav">
         <a href="{% url 'obras_construccion' %}">Obras</a>
         <a href="#">Emergencias</a>
-        <a href="#">Control Diario</a>
+        <a href="{% url 'control_diario' %}">Control diario</a>
         <a href="#">Facturación</a>
         <a href="#">Remuneración</a>
         <a href="#">Prevención Riesgos</a>
     </nav>
     <main class="content">
-        <p>Área de trabajo</p>
+        <div class="central-content">
+            <h2>Servicios PEVELECTRIC</h2>
+            <img src="{% static 'image.jpg' %}" alt="Servicios PEVELECTRIC" style="margin-top: 11px;">
+        </div>
     </main>
 </body>
 </html>

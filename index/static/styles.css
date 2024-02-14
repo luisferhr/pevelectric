@@ -17,6 +17,10 @@ header {
     position: fixed; /* El header se mantiene fijo en la parte superior */
     top: 0;
 }
+h1 {
+    margin-left: 60px;
+    padding-bottom: 20px;
+}
 
 .logo {
     font-size: 24px;
@@ -64,6 +68,27 @@ nav a:hover {
     overflow-y: auto; /* Añadir desplazamiento si es necesario */
 }
 
+.central-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Opcional, según necesites */
+}
+
+.central-content h2 {
+    margin-left: 0;
+    margin-top: 30px; /* Elimina margin si lo prefieres */
+    padding-bottom: 90px;
+    text-align: center; /* Asegura que el texto esté centrado si es más largo que una línea */
+}
+
+.central-content img {
+    margin-top: 90px;
+    max-width: 80%; /* Ajusta según necesites para controlar el tamaño de la imagen */
+    height: auto; /* Mantiene la proporción de la imagen */
+}
+
 @media (max-width: 768px) {
     body {
         flex-direction: column; /* Cambia la dirección a columna para móviles */
@@ -97,6 +122,7 @@ nav a:hover {
 }
 
 table {
+    margin-top: 0px; /* Añade un margen superior a la tabla */
     width: 100%; /* Ajusta la tabla al ancho del contenedor */
     border-collapse: collapse; /* Colapsa los bordes de las celdas para que compartan un solo borde */
     table-layout: fixed; /* Opcional: para que todas las columnas tengan el mismo ancho */
@@ -167,7 +193,7 @@ td {
     flex-grow: 0; /* Evita que el checkbox crezca para llenar el espacio disponible */
 }
 
-.obra-form .button-container {
+.obra-form .button-container {    
     margin-left: 300px;
     justify-content: flex-start; /* Alinea el botón al comienzo (izquierda) */
     padding-top: 30px; /* Añade espacio arriba del botón */
@@ -192,4 +218,78 @@ td {
 
 .btn-link:hover {
     color: #131313b0; /* Oscurece el color del texto al pasar el ratón */
+}
+
+/* Estilos específicos para la tabla de calendario */
+.calendario-table {
+    margin-top: 50px; /* Espacio adicional arriba de la tabla */
+}
+
+.calendario-table th, .calendario-table td {
+    border: 1px solid black; /* Bordes negros */
+    text-align: center;
+    padding: 8px;
+    font-weight: bold;
+}
+
+.calendario-table td a {
+    color: black;
+    /*background-color: rgba(218, 198, 198, 0.907); /* Fondo rojo para días con obras */
+    display: block;
+    padding: 5px;
+}
+
+/* Estilos para los botones de navegación */
+.navigation-links a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 50px;
+    margin-right: 30px; /* Espacio entre botones */
+    background-color: #f2f2f2; /* Fondo gris claro */
+    color: #333; /* Texto oscuro */
+    text-decoration: none;
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave */
+}
+
+.navigation-links a:hover {
+    background-color: #4a90e2; /* Azul al pasar el ratón */
+    color: white; /* Texto blanco al pasar el ratón */
+}
+
+/* Separación de botones de navegación */
+.navigation-links {
+    margin-top: 21px; /* Espacio arriba de los botones */
+    text-align: center; /* Centra los botones */
+}
+
+.button.margin-right {
+    margin-right: 150px; /* Ajusta el valor del margen según necesites */
+}
+
+#mensaje-exito {
+    color: rgb(2, 5, 2);
+    background-color: rgb(244, 252, 244);
+    padding: 15px;
+    margin: 20px 5px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+/* Botones del formulario */
+.obra-form .btn-save, .obra-form .btn-generate-pdf, .obra-form .btn-delete-data {
+    margin-top: 50px;
+    background-color: rgb(219, 217, 217); /* Color de fondo gris */
+    color: black; /* Texto en negro */
+    padding: 5px 15px; /* Relleno para aumentar el tamaño */
+    font-size: 12px; /* Tamaño de letra */
+    border: 1px solid black; 
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor en forma de mano al pasar por encima */
+    text-decoration: none; /* Sin subrayado */
+    margin-left: 40px; /* Espacio entre botones */
+}
+
+.obra-form .btn-save:hover, .obra-form .btn-generate-pdf:hover, .obra-form .btn-delete-data:hover {
+    background-color: rgb(175, 174, 174); /* Color de fondo más oscuro al pasar el mouse */
 }

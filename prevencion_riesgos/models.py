@@ -1,3 +1,3 @@
 from django.db import models
-from usuario.models import Obra, TipoMaterial, MaterialObra
+from usuario.models import Obra, TipoMaterial, RetiroMaterial, DevolucionMaterial
 

@@ -49,14 +49,12 @@
                 <input type="checkbox" id="si_emergencia" name="si_emergencia" {% if form.si_emergencia.value %}checked{% endif %}>
             </div>
             <div class="form-group">
-                <label for="si_retira">Retira Material</label>
-                <input type="checkbox" id="si_retira" name="si_retira" {% if form.si_retira.value %}checked{% endif %}>
-                <a href="{% url 'retiro' obra_id=obra.id_obra %}"  class="btn-link">Ing. Retira</a>
+                <label>Retira Material</label>
+                <button type="submit" name="retiro">Ingresar Retiro</button>
             </div>
             <div class="form-group">
-                <label for="si_devuelve">Devuelve Material</label>
-                <input type="checkbox" id="si_devuelve" name="si_devuelve" {% if form.si_devuelve.value %}checked{% endif %}>
-                <a href="#" class="btn-link">Ing. Devuelve</a>
+                <label>Devuelve Material</label>
+                <button type="submit" name="devolucion">Ingresar Devolución</button>
             </div>
             <div class="form-group">
                 <label for="{{ form.fecha_inicio.id_for_label }}">Fecha de Inicio</label>
@@ -73,7 +71,7 @@
             <div class="form-group button-container">
                 <button type="submit">Guardar Obra</button>
             </div>
-        </form>        
+        </form>       
     </main>
 </body>
 </html>

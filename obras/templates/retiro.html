@@ -23,8 +23,6 @@
         {% endif %}
     </header>
     <nav class="nav">
-        <a href="#">Retiros</a>
-        <a href="#">Devoluciones</a> 
         <a href="{% url 'obras_construccion' %}" class="main-menu-link">Volver a obras</a>
         <a href="{% url 'index' %}">Menú principal</a>
     </nav>
@@ -34,7 +32,7 @@
             {% csrf_token %}
             <div class="form-group">
                 <label for="{{ form.id_obra.id_for_label }}">Número de Obra</label>
-                <input type="text" id="{{ form.id_obra.id_for_label }}" name="{{ form.id_obra.name }}" value="{{ form.id_obra.value|default_if_none:'' }}">
+                <span>{{ obra.id_obra }}</span>
             </div>
             {% for field in form %}
             <div class="form-group">
@@ -42,8 +40,10 @@
                 {{ field }}
             </div>
             {% endfor %}
-            <div class="form-group button-container">
-                <button type="submit">Guardar retiro</button>
+            <div class="form-group button-c">
+                <button type="submit" class="btn-save">Guardar retiro</button>
+                <a href="{% url 'generar_pdf' obra_id=obra.id_obra %}" class="btn btn-generate-pdf">Generar PDF</a>
+                <a href="{% url 'borra_retiro' obra_id=obra.id_obra %}" class="btn btn-delete-data">Borrar datos</a>
             </div>
         </form>        
     </main>

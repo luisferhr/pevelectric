@@ -1,0 +1,29 @@
+<main class="content">
+    <h1>Obras en desarrollo</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Num</th>
+                <th>Detalle</th>
+                <th>Lugar</th>
+                <th>Retiros</th>
+                <th>Devoluciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obra in obras %}
+            <tr>
+                <td>{{ obra.id_obra }}</td>
+                <td>{{ obra.descripcion }}</td>
+                <td>{{ obra.lugar }}</td>
+                <td><a href="{{ obra.url_retiro }}">Retiros</a></td>
+                <td><a href="{{ obra.url_devolucion }}">Devoluciones</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No hay obras ingresadas aún.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
