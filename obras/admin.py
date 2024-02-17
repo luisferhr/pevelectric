@@ -13,9 +13,9 @@ class DevolucionMaterialInline(admin.TabularInline):
 
 class ObraAdmin(admin.ModelAdmin):
     inlines = [RetiroMaterialInline, DevolucionMaterialInline]
-    list_display = ('id_obra', 'descripcion', 'lugar', 'si_emergencia', 'fecha_inicio', 'fecha_termino', 'si_finalizo', 'tipo_obra')
+    list_display = ('id_obra', 'descripcion', 'lugar','fecha_inicio', 'si_finalizo', 'tipo_obra')
     search_fields = ['id_obra', 'descripcion', 'lugar']
-    list_filter = ('si_emergencia', 'fecha_inicio', 'fecha_termino', 'si_finalizo', 'tipo_obra')
+    list_filter = ('fecha_inicio', 'si_finalizo', 'tipo_obra')
 
 class TipoMaterialAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'descripcion', 'stock')

@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <div class="logo">Nueva obra</div>
+        <div class="logo">Nueva emergencia</div>
         {% if user.is_authenticated %}
             <div class="login-message">
                 Bienvenido, {{ user.get_username }}
@@ -24,38 +24,35 @@
     </header>
     <nav class="nav">
         <a href="{% url 'crear_obra' %}">Nueva Obra</a>
-        <a href="{% url 'crear_emergencia' %}">Emergencias</a> 
+        <a href="{% url 'crear_emergencia' %}">Nueva emergencia</a> 
+        <a href="{% url 'mostrar_emergencias' %}"class="main-menu-link">Mostrar emergencias</a>
         <a href="{% url 'mostrar_obras' %}" class="main-menu-link">Volver a obras</a>
         <a href="{% url 'index' %}">Menú principal</a>
     </nav>
     <main class="content">
-        <h1>Modificar Obra</h1>
+        <h1>Emergencia a modificar :</h1>
         <form method="post" class="obra-form">
             {% csrf_token %}
             <div class="form-group">
-                <label for="{{ form.id_obra.id_for_label }}">Número de Obra:</label>
-                <input type="text" id="{{ form.id_obra.id_for_label }}" value="{{ form.instance.id_obra }}" readonly class="form-control-plaintext">
+                <label for="{{ form.descripcion.id_for_label }}">Descripción</label>
+                <input type="text" id="{{ form.descripcion.id_for_label }}" name="{{ form.descripcion.name }}" class="input" value="{{ form.descripcion.value|default_if_none:'' }}">
             </div>
             <div class="form-group">
-                <label for="{{ form.descripcion.id_for_label }}">Descripción:</label>
-                {{ form.descripcion }}
+                <label for="{{ form.lugar.id_for_label }}">Lugar</label>
+                <input type="text" id="{{ form.lugar.id_for_label }}" name="{{ form.lugar.name }}" class="input" value="{{ form.lugar.value|default_if_none:'' }}">
             </div>
             <div class="form-group">
-                <label for="{{ form.lugar.id_for_label }}">Lugar:</label>
-                {{ form.lugar }}
+                <label for="{{ form.fecha_inicio.id_for_label }}">Fecha de inicio:</label>
+                {{ form.fecha_inicio }}
             </div>
             <div class="form-group">
-                <label for="{{ form.tipo_obra.id_for_label }}">Tipo de Obra:</label>
-                {{ form.tipo_obra }}
-            </div>
-            <div class="form-group">
-                <label for="{{ form.si_finalizo.id_for_label }}">Finalizada:</label>
-                {{ form.si_finalizo }}
+                <label for="{{ form.numero_obra.id_for_label }}">Número de Obra (Opcional)</label>
+                <input type="text" id="{{ form.numero_obra.id_for_label }}" name="{{ form.numero_obra.name }}" class="input" value="{{ form.numero_obra.value|default_if_none:'' }}">
             </div>
             <div class="form-group button-container">
-                <button type="submit">Guardar cambios</button>
+                <button type="submit" class="btn-save">Guardar Emergencia</button>
             </div>
-        </form>
+        </form>       
     </main>
 </body>
 </html>

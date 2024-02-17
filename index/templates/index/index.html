@@ -24,12 +24,20 @@
         </div>
     </header>
     <nav class="nav">
-        <a href="{% url 'obras_construccion' %}">Obras</a>
-        <a href="#">Emergencias</a>
         <a href="{% url 'control_diario' %}">Control diario</a>
-        <a href="#">Facturación</a>
-        <a href="#">Remuneración</a>
-        <a href="#">Prevención Riesgos</a>
+        {% if puede_ingresar %}
+            <a href="{% url 'mostrar_obras' %}"class="main-menu-link">Obras</a>
+            <a href="{% url 'mostrar_emergencias' %}">Emergencias</a>
+            <a href="#"class="main-menu-link">Facturación</a>
+            <a href="#">Remuneración</a>
+            <a href="#">Prevención Riesgos</a>
+        {% else %}
+            <a href="#"class="main-menu-link">Obras</a>
+            <a href="#">Emergencias</a>
+            <a href="#"class="main-menu-link">Facturación</a>
+            <a href="#">Remuneración</a>
+            <a href="#">Prevención Riesgos</a>
+        {% endif %}
     </nav>
     <main class="content">
         <div class="central-content">

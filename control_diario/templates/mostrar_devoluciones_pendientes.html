@@ -12,10 +12,11 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
     <!-- Incluir DataTables JS -->
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
 </head>
 <body>
     <header>
-        <div class="logo">Menú obras</div>
+        <div class="logo">Menú control diario</div>
         {% if user.is_authenticated %}
             <div class="login-message">
                 Bienvenido, {{ user.get_username }}
@@ -31,51 +32,34 @@
     <nav class="nav">
         <a href="{% url 'crear_obra' %}">Nueva Obra</a>
         <a href="{% url 'crear_emergencia' %}">Nueva emergencia</a>
-        <a href="{% url 'retiros_pendientes' %}" class="main-menu-link">Retiros pendientes</a>
-        <a href="{% url 'devoluciones_pendientes' %}">Devoluciones pendientes</a>
+        <a href="{% url 'mostrar_obras' %}" class="main-menu-link">Volver a obras</a>
         <a href="{% url 'index' %}" class="main-menu-link">Menú principal</a>
     </nav>
     <main class="content">
-        <h1>Obras en desarrollo</h1>
-        <table id="tablaObras">
+        <h1>Devoluciones Pendientes</h1>
+        <table>
             <thead>
                 <tr>
-                    <th>Num</th>
-                    <th>Detalle</th>
-                    <th>Lugar</th>
-                    <th>Inicio</th>
-                    <th>Finalizó</th>
-                    <th>Retiros</th>
-                    <th>Devoluciones</th>
+                    {% for nombre in cabecera %}
+                    <th>{{ nombre }}</th>
+                    {% endfor %}
                 </tr>
             </thead>
             <tbody>
-                {% for obra in obras %}
+                {% for obra in datos_obras %}
                 <tr>
-                    <td class="btn-td"><a href="{% url 'modificar' id_obra=obra.id_obra retornar_a='crear_obra' %}">{{ obra.id_obra }}</a></td>
-                    <td>{{ obra.descripcion }}</td>
-                    <td>{{ obra.lugar }}</td>
-                    <td>{{ obra.fecha_inicio }}</td>
-                    <td>{{ obra.si_finalizo }}</td>
-                    <td class="btn-td"><a href="{{ obra.url_retiro }}">{{obra.id_obra}}</a></td>
-                    <td class="btn-td"><a href="{{ obra.url_devolucion }}">{{obra.id_obra}}</a></td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="6">No hay obras ingresadas aún.</td>
+                    {% for valor in obra.values %}
+                        {% if forloop.first %}
+                            <td class="btn-td"><a href="{% url 'devolucion' obra_id=valor %}">{{ valor }}</a></td>
+                        {% else %}
+                            <td>{{ valor }}</td>
+                        {% endif %}
+                    {% endfor %}
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <a href="{% url 'creaBllPdf' %}" class="content btn-save-t">Generar PDF de devoluciones pendientes</a>
     </main>
-    <script>
-        $(document).ready(function() {
-            $('#tablaObras').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
-                }
-            });
-        });
-    </script>
 </body>
 </html>

@@ -1,11 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
-    <title>Emergencias en Construcción</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pevelectric</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <!-- Incluir jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- Incluir DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <!-- Incluir DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
-    <h1>Esta es emergencias en construcción</h1>
-    <a href="{% url 'index' %}">Volver</a>
+    <header>
+        <div class="logo">Emergencias</div>
+        {% if user.is_authenticated %}
+            <div class="login-message">
+                Bienvenido, {{ user.get_username }}
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Salir</button>
+                </form>
+            </div>
+        {% else %}
+            <a href="{% url 'login' %}">Iniciar sesión</a>
+        {% endif %}
+    </header>
+    <nav class="nav">
+        <a href="{% url 'crear_obra' %}">Nueva Obra</a>
+        <a href="{% url 'crear_emergencia' %}">Nueva Emergencia</a>
+        <a href="{% url 'index' %}" class="main-menu-link">Menú principal</a>
+    </nav>
+    <main class="content">
+        <h1>Emergencias registradas</h1>
+        <table id="tablaEmergencias">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Lugar</th>
+                    <th>Fecha de inicio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emergencia in emergencias %}
+                <tr>
+                    <td class="btn-td"><a href="{% url 'modificar_emergencia' id_emergencia=emergencia.id_emergencia retornar_a='mostrar_emergencias' %}">{{ emergencia.id_emergencia }}</a></td>
+                    <td>{{ emergencia.descripcion }}</td>
+                    <td>{{ emergencia.lugar }}</td>
+                    <td>{{ emergencia.fecha_inicio }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No hay emergencias registradas aún.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+    <script>
+        $(document).ready(function() {
+            $('#tablaEmergencias').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+                }
+            });
+        });
+    </script>
 </body>
 </html>

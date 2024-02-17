@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pevelectric</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <!-- Incluir jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- Incluir DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <!-- Incluir DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+</head>
+<body>
+    <header>
+        <div class="logo">Menú control diario</div>
+        {% if user.is_authenticated %}
+            <div class="login-message">
+                Bienvenido, {{ user.get_username }}
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Salir</button>
+                </form>
+            </div>
+        {% else %}
+            <a href="{% url 'login' %}">Iniciar sesión</a>
+        {% endif %}
+    </header>
+    <nav class="nav">
+        <a href="{% url 'control_diario_fecha' año=año mes=mes %}">Control diario</a>
+        <a href="{% url 'crear_obra' %}" class="main-menu-link">Nueva Obra</a>
+        <a href="{% url 'crear_emergencia' %}">Nueva emergencia</a>
+        
+        <a href="{% url 'index' %}" class="main-menu-link">Menú principal</a>
+    </nav>
+    <main class="content menu-emergencia">
+        <h1>Obras y emergencias en desarrollo</h1>
+        <p class="eme_fecha">Día : {{dia}}/{{mes}}/{{año}}</p>
+        <a href="{% url 'obras_por_dia' dia=dia mes=mes año=año %}" class="boton_menu_emergencia">Ver Obras</a>
+        <a href="{% url 'emergencias_por_dia' dia=dia mes=mes año=año %}" class="boton_menu_emergencia">Ver Emergencias</a>
+    </main>
+</body>
+</html>

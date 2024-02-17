@@ -23,50 +23,57 @@
         {% endif %}
     </header>
     <nav class="nav">
-        <a href="{% url 'crear_obra' %}">Nueva Obra</a>
-        <a href="#">Emergencias</a> 
-        <a href="{% url 'obras_construccion' %}" class="main-menu-link">Volver a obras</a>
-        <a href="{% url 'index' %}">Menú principal</a>
+        {% if puede_ingresar %}
+            <a href="{% url 'crear_obra' %}">Nueva Obra</a>
+            <a href="{% url 'crear_emergencia' %}">Nueva emergencia</a> 
+            <a href="{% url 'mostrar_obras' %}" class="main-menu-link">Volver a obras</a>
+            <a href="{% url 'index' %}"class="main-menu-link">Menú principal</a>
+        {% else %}
+            <a href="#">Nueva Obra</a>
+            <a href="#">Emergencias</a> 
+            <a href="#" class="main-menu-link">Volver a obras</a>
+            <a href="#">Menú principal</a>
+        {% endif %}
     </nav>
     <main class="content">
-
         <h1>Calendario de Obras - {{ nombre_mes }} {{ año }}</h2>
-            <table class="calendario-table">
-                <div class="search-box">
-                    <label for="searchObra">Buscar Obra por Número:</label>
-                    <input type="text" id="searchObra" name="searchObra">
-                    <button id="searchObraBtn">Buscar</button>
-                </div>
-                <tr>
-                    <th>Lun</th>
-                    <th>Mar</th>
-                    <th>Mié</th>
-                    <th>Jue</th>
-                    <th>Vie</th>
-                    <th>Sáb</th>
-                    <th>Dom</th>
-                </tr>
-                {% for semana in semanas %}
-                <tr>
-                    {% for dia in semana %}
-                    <td data-dia="{{dia.dia}}">
-                        {% if dia.tiene_obra and dia.dia != 0 %}
-                        <!-- Asumiendo que 'obras_por_dia' es una vista que acepta año, mes y día -->
-                        <a href="{% url 'obras_por_dia' año=año mes=mes dia=dia.dia %}">{{ dia.dia }}</a>
-                        {% else %}
-                        {{ dia.dia|default:"" }}
-                        {% endif %}
-                    </td>
-                    {% endfor %}
-                </tr>
+        <table class="calendario-table">
+            <div class="search-box">
+                <label for="searchObra">Buscar Obra por Número:</label>
+                <input type="text" id="searchObra" name="searchObra">
+            </div>
+            <tr>
+                <th>Lun</th>
+                <th>Mar</th>
+                <th>Mié</th>
+                <th>Jue</th>
+                <th>Vie</th>
+                <th>Sáb</th>
+                <th>Dom</th>
+            </tr>
+            {% for semana in mes_mostrar %}
+            <tr>
+                {% for dia in semana %}
+                <td data-dia="{{dia.dia}}">
+                    {% if dia.dia != 0 %}
+                       <a href="{% url 'menu_control_diario' año=año mes=mes dia=dia.dia %}">{{ dia.dia }}</a>
+                    {% else %}  
+                       {{ dia.dia|default:"" }}
+                    {% endif %}
+                </td>
                 {% endfor %}
-            </table>
-        <!-- Botones para navegar entre meses y años -->
-        <div class="navigation-links">
-            <a href="{% url 'control_diario_fecha' año=año_antes mes=mes %}" class="button">Año anterior</a>
-            <a href="{% url 'control_diario_fecha' año=año_anterior mes=mes_anterior %}" class="button margin-right">Mes anterior</a>
-            <a href="{% url 'control_diario_fecha' año=año_siguiente mes=mes_siguiente %}" class="button">Mes siguiente</a>
-            <a href="{% url 'control_diario_fecha' año=año_despues mes=mes %}" class="button">Año siguiente</a>
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="obra-form">
+            <a href="{% url 'control_diario_fecha' año=año_antes mes=mes %}" class="btn-save-l">Año anterior</a>
+            <a href="{% url 'control_diario_fecha' año=año_anterior mes=mes_anterior %}" class="btn-save margin-right">Mes anterior</a>
+            <a href="{% url 'control_diario_fecha' año=año_siguiente mes=mes_siguiente %}" class="btn-save">Mes siguiente</a>
+            <a href="{% url 'control_diario_fecha' año=año_despues mes=mes %}" class="btn-save">Año siguiente</a>
+        </div> 
+        <div class="obra-form">
+            <a href="{% url 'reporte_retiro_material' fecha1=fecha1 fecha2=fecha2 %}" class="btn-generate-pdf margin-right-left">Retiros del mes (PDF)</a>
+            <a href="{% url 'reporte_devolucion_material' fecha1=fecha1 fecha2=fecha2 %}" class="btn-generate-pdf">Devoluciones del mes (PDF)</a>
         </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -76,7 +83,6 @@
             $('#searchObra').on('input', function() {
                 var textoIngresado = $('#searchObra').val().toLowerCase(); // Obtiene el texto ingresado por el usuario
                 $('.calendario-table td').css('background-color', ''); // Limpia cualquier resaltado previo
-                
                 if (textoIngresado.length > 0) { // Solo procede si hay texto ingresado
                     Object.entries(inicioObra).forEach(([dia, obras]) => {
                         obras.forEach(obra => {
@@ -90,7 +96,5 @@
             });
         });
     </script>
-        
-        
 </body>
 </html>

@@ -24,9 +24,10 @@
     </header>
     <nav class="nav">
         <a href="{% url 'crear_obra' %}">Nueva Obra</a>
-        <a href="#">Emergencias</a> 
-        <a href="{% url 'obras_construccion' %}" class="main-menu-link">Volver a obras</a>
-        <a href="{% url 'index' %}">Menú principal</a>
+        <a href="{% url 'crear_emergencia' %}">Nueva emergencia</a> 
+        <a href="{% url 'mostrar_emergencias' %}"class="main-menu-link">Mostrar emergencias</a>
+        <a href="{% url 'mostrar_obras' %}">Mostrar obras</a>
+        <a href="{% url 'index' %}"class="main-menu-link">Menú principal</a>
     </nav>
     <main class="content">
         <h1>Ingrese los siguientes datos:</h1>
@@ -34,42 +35,26 @@
             {% csrf_token %}
             <div class="form-group">
                 <label for="{{ form.id_obra.id_for_label }}">Número de Obra</label>
-                <input type="text" id="{{ form.id_obra.id_for_label }}" name="{{ form.id_obra.name }}" value="{{ form.id_obra.value|default_if_none:'' }}">
+                <input type="text" id="{{ form.id_obra.id_for_label }}" name="{{ form.id_obra.name }}" class="input" value="{{ form.id_obra.value|default_if_none:'' }}">
             </div>
             <div class="form-group">
                 <label for="{{ form.descripcion.id_for_label }}">Descripción</label>
-                <input type="text" id="{{ form.descripcion.id_for_label }}" name="{{ form.descripcion.name }}" value="{{ form.descripcion.value|default_if_none:'' }}">
+                <input type="text" id="{{ form.descripcion.id_for_label }}" name="{{ form.descripcion.name }}" class="input" value="{{ form.descripcion.value|default_if_none:'' }}">
             </div>
             <div class="form-group">
                 <label for="{{ form.lugar.id_for_label }}">Lugar</label>
-                <input type="text" id="{{ form.lugar.id_for_label }}" name="{{ form.lugar.name }}" value="{{ form.lugar.value|default_if_none:'' }}">
+                <input type="text" id="{{ form.lugar.id_for_label }}" name="{{ form.lugar.name }}" class="input" value="{{ form.lugar.value|default_if_none:'' }}">
             </div>
             <div class="form-group">
-                <label for="si_emergencia">Emergencia</label>
-                <input type="checkbox" id="si_emergencia" name="si_emergencia" {% if form.si_emergencia.value %}checked{% endif %}>
-            </div>
-            <div class="form-group">
-                <label>Retira Material</label>
-                <button type="submit" name="retiro">Ingresar Retiro</button>
-            </div>
-            <div class="form-group">
-                <label>Devuelve Material</label>
-                <button type="submit" name="devolucion">Ingresar Devolución</button>
-            </div>
-            <div class="form-group">
-                <label for="{{ form.fecha_inicio.id_for_label }}">Fecha de Inicio</label>
+                <label for="{{ form.fecha_inicio.id_for_label }}">Fecha de inicio:</label>
                 {{ form.fecha_inicio }}
             </div>
             <div class="form-group">
-                <label for="{{ form.fecha_termino.id_for_label }}">Fecha de Término</label>
-                {{ form.fecha_termino }}
-            </div>
-            <div class="form-group">
-                <label for="{{ form.tipo_obra.id_for_label }}">Tipo de Obra</label>
+                <label for="{{ form.tipo_obra.id_for_label }}">Tipo de Obra (Opcional)</label>
                 {{ form.tipo_obra }}
             </div>
             <div class="form-group button-container">
-                <button type="submit">Guardar Obra</button>
+                <button type="submit" class="btn-save">Guardar Obra</button>
             </div>
         </form>       
     </main>

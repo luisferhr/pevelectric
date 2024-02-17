@@ -16,7 +16,7 @@
 </head>
 <body>
     <header>
-        <div class="logo">Menú obras</div>
+        <div class="logo">Emergencias</div>
         {% if user.is_authenticated %}
             <div class="login-message">
                 Bienvenido, {{ user.get_username }}
@@ -32,41 +32,33 @@
     <nav class="nav">
         <a href="{% url 'menu_control_diario' año=fecha.year mes=fecha.month dia=fecha.day %}">Retornar al {{fecha.day}}/{{fecha.month}}/{{fecha.year}}</a>
         <a href="{% url 'control_diario_fecha' año=fecha.year mes=fecha.month %}">Control diario</a>
-        <a href="{% url 'crear_obra' %}"class="main-menu-link">Nueva Obra</a>
+        <a href="{% url 'crear_obra' %}" class="main-menu-link">Nueva Obra</a>
         <a href="{% url 'crear_emergencia' %}">Nueva emergencia</a>
         <a href="{% url 'index' %}" class="main-menu-link">Menú principal</a>
     </nav>
     <main class="content">
-        <h1>Obras en desarrollo</h1>
+        <h1>Emergencias en desarrollo</h1>
         <h3>Día {{ fecha }}</h3>
         <div class="tablas-container">
-            <div class="tabla-obra">
-                <table id="tablaObras">
+            <div class="tabla-emergencia">
+                <table id="tablaEmergencias">
                     <thead>
                         <tr>
                             <th>Num</th>
-                            <th>Etapa</th>
+                            <th>Descripción</th>
+                            <th>Lugar</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for obra in obras %}
+                        {% for emergencia in emergencias %}
                         <tr>
-                            <td>{{ obra.id_obra }}</td>
-                            <td>
-                                <a href="{% url 'cambiar_etapa_obra' id_obra=obra.id_obra dia=dia mes=mes año=año %}">
-                                    {% if obra.etapa == 1 %}
-                                        En ejecución
-                                    {% elif obra.etapa == 2 %}
-                                        Asignada
-                                    {% elif obra.etapa == 3 %}
-                                        Finalizada
-                                    {% endif %}
-                                </a>
-                            </td>
+                            <td class="btn-td"><a href="{% url 'modificar_emergencia' id_emergencia=emergencia.id_emergencia retornar_a='mostrar_emergencias' %}">{{ emergencia.id_emergencia }}</a></td>
+                            <td>{{ emergencia.descripcion }}</td>
+                            <td>{{ emergencia.lugar }}</td>
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="2">No hay obras ingresadas aún.</td>
+                            <td colspan="3">No hay emergencias registradas aún.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -76,9 +68,9 @@
     </main>
     <script>
         $(document).ready(function() {
-            // Inicializar DataTables en la tabla de obras
-            if ($('#tablaObras tbody tr').length > 0) {
-                $('#tablaObras').DataTable({
+            // Inicializar DataTables en la tabla de emergencias
+            if ($('#tablaEmergencias tbody tr').length > 0) {
+                $('#tablaEmergencias').DataTable({
                     "language": {
                         "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
                     }

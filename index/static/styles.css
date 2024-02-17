@@ -122,20 +122,22 @@ nav a:hover {
 }
 
 table {
-    margin-top: 0px; /* Añade un margen superior a la tabla */
+    margin-right: 20px; /* Añade un margen superior a la tabla */
     width: 100%; /* Ajusta la tabla al ancho del contenedor */
     border-collapse: collapse; /* Colapsa los bordes de las celdas para que compartan un solo borde */
     table-layout: fixed; /* Opcional: para que todas las columnas tengan el mismo ancho */
+    margin-bottom: 30px;
+
 }
 
 th, td {
     border: 1px solid #ddd; /* Añade un borde a las celdas de la tabla */
     text-align: left; /* Alinea el texto a la izquierda */
-    padding: 8px; /* Añade relleno dentro de las celdas para separar el texto de los bordes */
+    padding: 20px; /* Añade relleno dentro de las celdas para separar el texto de los bordes */
 }
 
 th {
-    background-color: #f2f2f2; /* Añade un color de fondo a las celdas del encabezado */
+    background-color: #eeededf6; /* Añade un color de fondo a las celdas del encabezado */
     font-weight: bold; /* Hace que el texto del encabezado sea en negrita */
 }
 
@@ -144,7 +146,25 @@ tr:nth-child(even) {
 }
 
 td {
-    font-size: 14px; /* Ajusta el tamaño de la fuente para el contenido de la tabla */
+    font-size: 15px; /* Ajusta el tamaño de la fuente para el contenido de la tabla */
+}
+
+.btn-td a {
+    display: block;
+    background-color: rgba(233, 231, 231, 0.915); /* Fondo rojo */
+    color: black; /* Texto negro */
+    padding: 3px 2px; /* Espaciado interno */
+    text-align: center; /* Centrar texto */
+    border: 1px solid black; /* Borde negro */
+    border-radius: 5px; /* Bordes redondeados */
+    text-decoration: none; /* Eliminar subrayado */
+    transition: background-color 0.3s; /* Transición suave al cambiar de color */
+}
+
+.btn-td a:hover {
+    background-color: rgba(118, 116, 116, 0.561); /* Fondo más oscuro al pasar el mouse */
+    padding: 4px 2px; /* Espaciado interno */
+    font-size: 15px;
 }
 
 .form-login {
@@ -253,8 +273,8 @@ td {
 }
 
 .navigation-links a:hover {
-    background-color: #4a90e2; /* Azul al pasar el ratón */
-    color: white; /* Texto blanco al pasar el ratón */
+    background-color: #8c8c8dc3; 
+    color: white; 
 }
 
 /* Separación de botones de navegación */
@@ -263,9 +283,9 @@ td {
     text-align: center; /* Centra los botones */
 }
 
-.button.margin-right {
+/*.button .margin-right {
     margin-right: 150px; /* Ajusta el valor del margen según necesites */
-}
+/*} */
 
 #mensaje-exito {
     color: rgb(2, 5, 2);
@@ -276,9 +296,11 @@ td {
     border-radius: 10px;
 }
 
-/* Botones del formulario */
-.obra-form .btn-save, .obra-form .btn-generate-pdf, .obra-form .btn-delete-data {
-    margin-top: 50px;
+/* Botones de formularios */
+.obra-form {
+    margin-top: 100px; /* Ajusta este valor según la necesidad */
+}
+.obra-form .btn-save,.btn-save-t, .obra-form .btn-save-l, .obra-form .btn-generate-pdf, .obra-form .btn-delete-data {
     background-color: rgb(219, 217, 217); /* Color de fondo gris */
     color: black; /* Texto en negro */
     padding: 5px 15px; /* Relleno para aumentar el tamaño */
@@ -287,9 +309,90 @@ td {
     border-radius: 5px; /* Bordes redondeados */
     cursor: pointer; /* Cursor en forma de mano al pasar por encima */
     text-decoration: none; /* Sin subrayado */
-    margin-left: 40px; /* Espacio entre botones */
+    margin-left: 30px; /* Espacio entre botones */
 }
 
+.obra-form .btn-save-l{
+    margin-left: 60px;
+}
+
+.obra-form .btn-save-t{
+    margin-top: 80px;
+}
+
+.obra-form .btn-generate-pdf{
+    background-color: rgba(231, 219, 219, 0.776);
+}
 .obra-form .btn-save:hover, .obra-form .btn-generate-pdf:hover, .obra-form .btn-delete-data:hover {
-    background-color: rgb(175, 174, 174); /* Color de fondo más oscuro al pasar el mouse */
+    background-color: rgba(144, 142, 142, 0.57); 
+}
+.obra-form .margin-right {
+    margin-right: 40px;
+}
+.obra-form .margin-right-left {
+    margin-left: 120px;
+    margin-right: 40px;
+}
+
+h3 {
+    size: 10px;
+    margin-right: 20px;
+    margin-bottom: 40px;
+    text-align: right;
+    padding-right: 300px;
+}
+
+.dataTables_filter {
+    margin-bottom: 20px !important;
+}
+
+.tablas-container {
+    display: flex;
+    flex-wrap: nowrap; /* Asegura que los elementos no se envuelvan */
+}
+
+.tabla-obra, .tabla-emergencia {
+    /*flex-basis: calc(90%); /* Ajusta el ancho inicial y resta el espacio del margen */
+    margin-left: 0% !important; /* Margen entre tablas */
+    margin-right: 0% !important;
+}
+
+.tabla-emergencia {
+    margin-right: 0; /* Elimina el margen derecho en la última tabla */
+}
+
+.menu-emergencia{
+    margin-top: 60px;
+}
+
+.menu-emergencia .boton_menu_emergencia {
+    background-color: rgb(235, 233, 233);
+    color: black; /* Texto negro */
+    border: 2px solid black; /* Borde de línea */
+    border-radius: 10px; /* Puntas redondeadas */
+    padding: 10px 20px; /* Espaciado interno */
+    cursor: pointer; /* Cambia el cursor a una mano para indicar que es clickeable */
+    text-decoration: none; /* Elimina el subrayado del texto */
+    display: inline-block; /* Mantiene los botones en la misma línea */
+    margin-top: 30px;
+    margin-left: 100px;
+    transition: background-color 0.3s; /* Transición suave al cambiar color */
+}
+
+.menu_emergencia .boton_menu_emergencia:hover {
+    background-color: rgba(73, 70, 70, 0.395); /* Color al pasar el cursor */
+}
+
+.eme_fecha{
+    font-size: 25px;
+    margin-left: 150px;
+    padding: 20px;
+}
+
+.tab-1 {
+    padding-left: 20px !important;
+}
+
+.tab-2 {
+    padding-left: 40px !important;
 }
