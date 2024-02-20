@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from usuario.models import Obra, RetiroMaterial, TipoMaterial, DevolucionMaterial
 from .forms import CrearObraForm, RetiroForm, DevolucionForm, ModificarObraForm
-from datetime import date, datetime, timezone
+from datetime import date, datetime
+from django.utils import timezone
 from django.db import transaction
 from django.urls import reverse
 from django.contrib import messages
