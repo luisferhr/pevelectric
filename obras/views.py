@@ -32,7 +32,7 @@ def crear_obra(request):
             obra.fecha_inicio = timezone.now().date()
             obra.save() 
             request.session['obra_guardada'] = True
-            return redirect('obras_index')  
+            return redirect('mostrar_obras')  
     else:
         form = CrearObraForm()  
     contexto = {
@@ -47,7 +47,7 @@ def retiro(request, obra_id):
         obra = Obra.objects.get(id_obra=obra_id)
         print(obra)
     except Obra.DoesNotExist:
-        return render(request, 'no_existe.html', {'obra_id': obra_id, 'volver_a': obras_construccion})
+        return render(request, 'no_existe.html', {'obra_id': obra_id, 'volver_a': mostrar_obras})
     if request.method == 'POST':
         form = RetiroForm(obra=obra, data=request.POST)
         if form.is_valid():
@@ -79,7 +79,7 @@ def devolucion(request, obra_id):
         obra = Obra.objects.get(id_obra=obra_id)
         print(obra)
     except Obra.DoesNotExist:
-        return render(request, 'no_existe.html', {'obra_id': obra_id, 'volver_a': obras_construccion})
+        return render(request, 'no_existe.html', {'obra_id': obra_id, 'volver_a': mostrar_obras})
     if request.method == 'POST':
         form = DevolucionForm(obra=obra, data=request.POST)
         if form.is_valid():
@@ -109,7 +109,7 @@ def devolucion(request, obra_id):
 
 @login_required(login_url='/login/')
 @transaction.atomic
-def modificar_obra(request, id_obra, retornar_a='index'):
+def modificar_obra(request, id_obra, retornar_a='mostrar_obras'):
     obra = get_object_or_404(Obra, id_obra=id_obra)
     if request.method == 'POST':
         form = ModificarObraForm(request.POST, instance=obra)
